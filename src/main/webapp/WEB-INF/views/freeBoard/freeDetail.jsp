@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <section>
 	<div class="container">
 		<div class="row">
@@ -49,19 +49,20 @@
 					</div>
 					<!--form-control은 부트스트랩의 클래스입니다-->
 					<div class="reply-content">
-						<textarea class="form-control" rows="3"></textarea>
+						<textarea class="form-control" rows="3" name="reply" id="reply"></textarea>
 						<div class="reply-group">
 							<div class="reply-input">
-								<input type="text" class="form-control" placeholder="이름"> <input type="password" class="form-control" placeholder="비밀번호">
+								<input type="text" class="form-control" placeholder="이름" name="replyID" id="replyID"> <input type="password" class="form-control" placeholder="비밀번호" name="replyPW" id="replyPW">
 							</div>
 
-							<button type="button" class="right btn btn-info">등록하기</button>
+							<button type="button" class="right btn btn-info" id="replyRegist">등록하기</button>
 						</div>
 
 					</div>
 				</form>
 
 				<!--여기에접근 반복-->
+				<!-- 
 				<div id="replyList">
 					<div class='reply-wrap'>
 						<div class='reply-image'>
@@ -69,12 +70,19 @@
 						</div>
 						<div class='reply-content'>
 							<div class='reply-group'>
-								<strong class='left'>honggildong</strong> <small class='left'>2019/12/10</small> <a href='#' class='right'><span class='glyphicon glyphicon-pencil'></span>수정</a> <a href='#' class='right'><span class='glyphicon glyphicon-remove'></span>삭제</a>
+								<strong class='left'>honggildong</strong> 
+								<small class='left'>2019/12/10</small> 
+								<a href='#' class='right'><span class='glyphicon glyphicon-pencil'></span>수정</a> 
+								<a href='#' class='right'><span class='glyphicon glyphicon-remove'></span>삭제</a>
 							</div>
 							<p class='clearfix'>여기는 댓글영역</p>
 						</div>
 					</div>
 				</div>
+				 -->
+				 <div id="comment_people">
+
+				 </div>
 			</div>
 		</div>
 	</div>
@@ -105,3 +113,79 @@
 		</div>
 	</div>
 </div>
+<script>
+
+
+				$(document).ready(function () {
+					$("#replyRegist").click(function () {
+						var bno = '${vo.bno}'; //글번호
+						var reply = $("#reply").val();
+						var replyID = $("#replyID").val();
+						var replyPW = $("#replyPW").val();
+						if (reply == '' || replyID == '' || replyPW == '') {
+							alert("이름 비번 내용은 필수입니다");
+							return;
+						}
+						// console.log(reply, replyID, replyPW);
+
+						$.ajax({
+
+							type: "post",
+							url: "../reply/repltRegist",
+							contentType: "application/json; charset=UTF-8",
+							dataType: "json",
+							data: JSON.stringify({ "bno": bno, "reply": reply, "replyID": replyID, "replyPW": replyPW }),
+							success: function (data) {
+								if (data == 1) {
+									$("#reply").val("");
+									$("#replyID").val("");
+									$("#replyPW").val("");
+									getList();
+								}
+								else {
+									alert("등록에 실패했습니다");
+								}
+							},
+
+							//실패시 실행함수
+							error: function (status, error) {
+
+								alert("등록에 실패했습니다");
+
+							}
+
+						});
+
+					})
+				});
+
+				getList();//데이터 조회메서드
+				function getList() {
+					var bno = '${vo.bno}';
+					var pageNum = 1; //페이지 번호
+					$.getJSON("../reply/getList/" + bno + "/" + pageNum, function (data) {
+						$("#comment_people").html("");
+						for(var a =0; a< data.length ; a++)
+						{
+							if (data[a].rno)
+							$("#comment_people").append
+							("<div id="+"replyList'"+">\
+									<div class='reply-wrap'>\
+										<div class='reply-image'>\
+											<img src='../resources/img/profile.png'>\
+										</div>\
+											<div class="+"'reply-content'"+">\
+												<div class='reply-group'>\
+													<strong class='left'>" +data[a].replyID+" : 회원 아이디  "+"</strong>\
+													<small class='left'>"+data[a].replyDate +": 등록 시간" +"</small>\
+													 <a href='#' class='right'><span class='glyphicon glyphicon-pencil'></span>수정</a>\
+													  <a href='#' class='right'><span class='glyphicon glyphicon-remove'></span>삭제</a>\
+												</div>\
+												<p class='clearfix'>"+"내용 : "+data[a].reply+"</p>\
+											</div>\
+										</div>\
+									</div>");
+							}
+					})
+				}
+			</script>

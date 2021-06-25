@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,6 +83,42 @@ public class RestBasicController {
 		ArrayList<TestVO> list = new ArrayList<TestVO>();
 		TestVO t = new TestVO("김이택", "24", "2021", 1998);
 		list.add(t);
+		return list;
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//(Cross-Origin Resource Sharing,CORS) 란 다른 출처의 자원을 공유할 수 있도록 설정하는 권한 체제를 말합니다.
+	//서로 다른 서버에 대한 허용
+	@CrossOrigin(origins = "*")
+	//consumes = application.json  => json으로 보내라
+	//produces = "application/json" => json으로 보낸다
+	@PostMapping(value = "/getAjax", consumes = "application/json", produces = "application/json")
+	public ArrayList<TestVO> getAjax(@RequestBody TestVO vo) {
+		System.out.println(vo.toString());
+
+		ArrayList<TestVO> list = new ArrayList<TestVO>();
+		TestVO t = new TestVO("김이택", "24", "2021", 1998);
+		list.add(vo);
+		list.add(t);
+		System.out.println(list.toString());
+		return list;
+
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//xml형식으로 반환 jackson -xml라이브러리 반드시 필요
+	@CrossOrigin(origins = "*")
+	//json형식으로 보내라 난 xml형식으로 반환한다
+	@PostMapping(value = "/getXML", consumes = "application/json", produces = "application/xml")
+	public ArrayList<TestVO> getXML(@RequestBody TestVO vo) {
+		System.out.println(vo.toString());
+
+		ArrayList<TestVO> list = new ArrayList<TestVO>();
+		TestVO t = new TestVO("김이택", "24", "2021", 1998);
+		list.add(vo);
+		list.add(t);
+		System.out.println(list.toString());
 		return list;
 
 	}

@@ -1,0 +1,11 @@
+CREATE table FREEREPLY(
+    rno number(10) PRIMARY key,
+    bno number(10) ,
+    reply varchar2 (1000),
+    replyID varchar2(200) , 
+    replyPW varchar2(200) , 
+    replyDate date default sysdate,
+    updateDate date default sysdate
+);
+
+create SEQUENCE FREEREPLY_SEQ INCREMENT by 1 start with 1 NOCACHE;
