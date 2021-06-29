@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.team404.command.FreeReplyVO;
 import com.team404.reply.mapper.ReplyMapper;
+import com.team404.util.Criteria;
 @Service("replyService")
 public class ReplyServiceImpl implements ReplyService{
 	@Autowired
@@ -19,9 +20,30 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	@Override
-	public ArrayList<FreeReplyVO> getList(int bno) {
-		System.out.println(replymapper.getList(bno));
-		return replymapper.getList(bno);
+	public ArrayList<FreeReplyVO> getList(int bno, Criteria cri) {
+		return replymapper.getList(bno , cri);
 	}
+
+	@Override
+	public int pwCheck(FreeReplyVO vo) {
+		return replymapper.pwCheck(vo);
+	}
+
+	@Override
+	public int update(FreeReplyVO vo) {
+		return replymapper.update(vo);
+	}
+
+	@Override
+	public int delete(FreeReplyVO vo) {
+		return replymapper.delete(vo);
+	}
+
+	@Override
+	public int getTotal(int bno) {
+		System.out.println();
+		return replymapper.getTotal(bno);
+	}
+
 
 }

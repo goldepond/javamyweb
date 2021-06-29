@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.team404.command.FreeReplyVO;
 import com.team404.command.TestVO;
 
 @RestController // 레스트 컨트롤러 = 비동기 컨트롤러 @RequestBody + @ResponseBody
@@ -98,9 +101,9 @@ public class RestBasicController {
 		System.out.println(vo.toString());
 
 		ArrayList<TestVO> list = new ArrayList<TestVO>();
-		TestVO t = new TestVO("김이택", "24", "2021", 1998);
+//		TestVO t = new TestVO("김이택", "24", "2021", 1998);
 		list.add(vo);
-		list.add(t);
+//		list.add(t);
 		System.out.println(list.toString());
 		return list;
 
@@ -115,11 +118,28 @@ public class RestBasicController {
 		System.out.println(vo.toString());
 
 		ArrayList<TestVO> list = new ArrayList<TestVO>();
-		TestVO t = new TestVO("김이택", "24", "2021", 1998);
+//		TestVO t = new TestVO("김이택", "24", "2021", 1998);
 		list.add(vo);
-		list.add(t);
+//		list.add(t);
 		System.out.println(list.toString());
 		return list;
 
 	}
+	
+	@CrossOrigin(origins = "*")
+	//json형식으로 보내라 난 xml형식으로 반환한다,
+	@GetMapping(value = "/getTest/{bno}/{code}")
+	public HashMap<String, Object> tESTXML(@PathVariable( "code") int code , @PathVariable("bno") int bno)
+	{
+		//
+//		ArrayList<FreeReplyVO> list = AAA.getList(bno, code); 
+		//사원코드 code, 관리자 인증키 bno를 받은뒤 받아 사원의 주소등을 합쳐 리스트로 반환할 함
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("list",list);
+		return map;
+
+	}
+	
+	
 }

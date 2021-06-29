@@ -35,6 +35,7 @@ public class FreeBoardController {
 		ArrayList<FreeBoardVO> list = freeService.getList(cri);
 		int total = freeService.getTotal(cri);
 		PageVO pageVO = new PageVO(cri, total);
+		
 		System.out.println(pageVO.toString());
 		
 		
@@ -49,6 +50,7 @@ public class FreeBoardController {
 		//sql문을 이용해서 FreeBoardVo에 결과값을 반환
 		//화면에서 사영할 수 있도록 boardVo 이름으로 modelㅂ전환
 		FreeBoardVO boardVo = freeService.getDetail(bno);
+		System.out.println(boardVo);
 		model.addAttribute("vo", boardVo);
 	}
 	

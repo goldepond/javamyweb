@@ -9,3 +9,15 @@ CREATE table FREEREPLY(
 );
 
 create SEQUENCE FREEREPLY_SEQ INCREMENT by 1 start with 1 NOCACHE;
+
+
+create table users(
+    userId varchar2(50) PRIMARY key,
+    userPw varchar2(50) not null,
+    userName VARCHAR2(50) not null,
+    userEmail VARCHAR2(50),
+    addrZipNum VARCHAR2(50),
+    addrBasic VARCHAR2(50),
+    addrDetail VARCHAR2(50),
+    regdate date DEFAULT sysdate
+);
