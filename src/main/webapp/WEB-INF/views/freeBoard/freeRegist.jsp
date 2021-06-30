@@ -14,7 +14,7 @@
 							<tr>
 								<td class="t-title">NAME</td>
 								<td>
-									<input class="form-control input-sm" name="writer" required="required">
+									<input class="form-control input-sm" name="writer" required="required" value="${sessionScope.userVO.userID}" readonly="readonly">
 								</td>
 							</tr>
 							<tr>

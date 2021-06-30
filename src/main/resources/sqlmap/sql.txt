@@ -21,3 +21,22 @@ create table users(
     addrDetail VARCHAR2(50),
     regdate date DEFAULT sysdate
 );
+
+select * from users;
+
+select * from freeboard;
+
+
+select  u.userid, u.username, 
+        u.useremail1, u.useremail2, 
+        u.addrbasic, u.addrdetail, u.addrzipnum,
+        f.bno , f.title, f.regdate
+from users u
+left outer join freeboard f on u.userid = f.writer
+where u.userid = 'goldepond';
+
+insert into users addrbasic VALUES '135899';
+
+update users set addrzipnum = '13589' where userid = 'goldepond';
+
+commit;

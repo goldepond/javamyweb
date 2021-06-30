@@ -6,17 +6,59 @@
 <mapper namespace="com.team404.reply.mapper.UserMapper">
 
 	<select id="idCheck" resultType="int">
-		select count(*) as result from users where userID = #{userID}	
+		select count(*) as result from
+		users where userID = #{userID}
 	</select>
-	
+
 	<insert id="join">
-	 insert into users( userID, userPW , userName , userEmail1 ,userEmail2, addrZipNum, addrBasic , addrDetail)
-	 values(#{userID}, #{userPW} , #{userName} , #{userEmail1},#{userEmail2}  , #{addrZipNum} , #{addrBasic} , #{addrDetail}) 
-    
-     
+		insert into users( userID, userPW , userName ,
+		userEmail1 ,userEmail2,
+		addrZipNum, addrBasic , addrDetail)
+		values(#{userID}, #{userPW} , #{userName} ,
+		#{userEmail1},#{userEmail2} , #{addrZipNum}
+		, #{addrBasic} ,
+		#{addrDetail})
+
+
 	</insert>
-	
+
 	<select id="login" resultType="UsersVO">
-		select * from users where userID= #{userID} and userPW= #{userPW}
+		select * from users where userID=
+		#{userID} and userPW= #{userPW}
 	</select>
+
+	<!-- 1대 n관계 조인구문에서는 select의 반환결과를 resultmap으로 직접 지정 아래 조인구문이서 u.~~이랑 f.~~이랑 
+		분류할거임 userInfo란 매퍼 활용 u.~~ => -->
+	<select id="getinfo" resultMap="userInfo">
+
+		select u.userid, u.username,
+		u.useremail1, u.useremail2,
+		u.addrbasic, u.addrdetail, u.addrzipnum,
+
+		f.bno , f.title, f.regdate
+		from users u
+
+		left outer join freeboard f on u.userid = f.writer
+		where u.userid
+		=#{userID}
+	</select>
+	<resultMap type="UsersVO" id="userInfo">
+		<!-- property vo객체의 setter colume DB의 컬럼명이 들어감 -->
+		<result property="userID" column="USERID" />
+		<result property="userName" column="USERNAME" />
+		<result property="userEmail1" column="USEREMAIL1" />
+		<result property="userEmail2" column="USEREMAIL2" />
+		<result property="addrBasic" column="ADDRBASIC" />
+		<result property="addrDetail" column="ADDRDETAIL" />
+		<result property="addrZipNum" column="ADDRZIPNUM" />
+		
+		<collection property="userBoardList" resultMap="boardList"></collection>
+	</resultMap>
+	
+	<resultMap type="FreeBoardVO" id="boardList">
+		<result property="bno" column="BNO" />
+		<result property="title" column="TITLE" />
+		<result property="regdate" column="REGDATE" />
+	</resultMap>
+	
 </mapper>

@@ -140,7 +140,7 @@ $("#joinBtn").click(function(){
         $("#userID").focus();
         return;
     }
-    else if($("#userPw").val() =='' || $("#userPW").val()  != $("#pwConfirm").val()){
+    else if($("#userPw").val() =='' || $("#userPw").val()  != $("#pwConfirm").val()){
         console.log($("#userPw").val());
         console.log("///////////////////////////////");
         console.log($("#pwConfirm").val());

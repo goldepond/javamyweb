@@ -43,7 +43,7 @@ public class ReplyController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("list",list);
 		map.put("total",total);
-		System.out.println(map);
+//		System.out.println(map);
 		return map;
 	}
 	
@@ -69,7 +69,7 @@ public class ReplyController {
 	@PostMapping(value = "delete", produces = "application/json")
 	public int delete(@RequestBody FreeReplyVO vo) 
 	{
-		System.out.println(vo + " 삭제할 대상");
+//		System.out.println(vo + " 삭제할 대상");
 		int result = replyService.pwCheck(vo);
 		if(result == 1)
 		{

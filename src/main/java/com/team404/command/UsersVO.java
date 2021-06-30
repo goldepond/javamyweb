@@ -3,6 +3,7 @@ package com.team404.command;
 
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,4 +25,7 @@ public class UsersVO {
     private String addrBasic ;
     private String addrDetail;
     private Timestamp regdate;
+    
+    //N관계에 테이블을 리스트gudxofh tjsdjs
+    private ArrayList<FreeBoardVO> userBoardList;
 }

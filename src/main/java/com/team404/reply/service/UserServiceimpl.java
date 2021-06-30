@@ -30,6 +30,11 @@ public class UserServiceimpl implements UserService {
 		return usermapper.login(vo);
 	}
 
+	@Override
+	public UsersVO getinfo(String userID) {
+		return usermapper.getinfo(userID);
+	}
+
 	
 
 }

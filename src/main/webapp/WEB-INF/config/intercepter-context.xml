@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="userAuthHandler"
+		class="com.team404.util.intercepter.UserAuthHandler"></bean>
+	<bean id="boardAuthHandler"
+		class="com.team404.util.intercepter.BoardAuthHandler"></bean>
+	<bean id="loginSuccessHandler"
+		class="com.team404.util.intercepter.LoginSuccessHandler"></bean>
+	<mvc:interceptors>
+
+
+		<mvc:interceptor>
+			<mvc:mapping path="/user/userMypage" />
+			<mvc:mapping path="/freeBoard/FreeRegist" />
+			<ref bean="userAuthHandler" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/freeBoard/freeModify" />
+			<mvc:mapping path="/freeBoard/freeUpdate" />
+			<mvc:mapping path="/freeBoard/freeDelete" />
+			<ref bean="boardAuthHandler" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/user/loginForm" />
+			<ref bean="loginSuccessHandler" />
+		</mvc:interceptor>
+
+
+	</mvc:interceptors>
+
+
+</beans>

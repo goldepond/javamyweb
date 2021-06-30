@@ -96,7 +96,9 @@
                      </c:if>
                      
                     </ul>
-                    <button type="button" class="btn btn-info" onclick="location.href ='freeRegist' ">글쓰기</button>
+                    <c:if test="${sessionScope.userVO != null}">
+	                    <button type="button" class="btn btn-info" onclick="location.href ='freeRegist' ">글쓰기</button>
+                    </c:if>
                     </div>
                     
                     <input type="hidden" name="pageNum" value="${pageVO.cri.pageNum }">

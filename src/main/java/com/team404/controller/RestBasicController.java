@@ -47,9 +47,9 @@ public class RestBasicController {
 
 	@GetMapping(value = "/getCollection")
 	public ArrayList<TestVO> getCollection(@RequestParam("num") String num) {
-		System.out.println(num);
+//		System.out.println(num);
 
-		System.out.println(num + "가나다");
+//		System.out.println(num + "가나다");
 		// ====================↓더미데이터=============================
 		ArrayList<TestVO> list = new ArrayList<TestVO>();
 		for (int i = 1; i <= 10; i++) {
@@ -64,9 +64,9 @@ public class RestBasicController {
 	@GetMapping("/getPaht/{sort}/{rank}/{page}")
 	public HashMap<String, TestVO> getPath(@PathVariable("sort") String sort, @PathVariable("rank") String rank,
 			@PathVariable("page") int page) {
-		System.out.println(sort + " sort");
-		System.out.println(rank + " rank");
-		System.out.println(page + " page");
+//		System.out.println(sort + " sort");
+//		System.out.println(rank + " rank");
+//		System.out.println(page + " page");
 
 		HashMap<String, TestVO> map = new HashMap<String, TestVO>();
 
@@ -104,7 +104,7 @@ public class RestBasicController {
 //		TestVO t = new TestVO("김이택", "24", "2021", 1998);
 		list.add(vo);
 //		list.add(t);
-		System.out.println(list.toString());
+//		System.out.println(list.toString());
 		return list;
 
 	}
@@ -121,7 +121,7 @@ public class RestBasicController {
 //		TestVO t = new TestVO("김이택", "24", "2021", 1998);
 		list.add(vo);
 //		list.add(t);
-		System.out.println(list.toString());
+//		System.out.println(list.toString());
 		return list;
 
 	}

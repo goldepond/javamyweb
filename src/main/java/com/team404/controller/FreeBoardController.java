@@ -30,7 +30,7 @@ public class FreeBoardController {
 	
 	@RequestMapping("/freeList")
 	public String freeList(Model model,Criteria cri) {
-		System.out.println(cri + " 크리테리아 옵션");
+//		System.out.println(cri + " 크리테리아 옵션");
 //===================================================
 		ArrayList<FreeBoardVO> list = freeService.getList(cri);
 		int total = freeService.getTotal(cri);
@@ -50,7 +50,7 @@ public class FreeBoardController {
 		//sql문을 이용해서 FreeBoardVo에 결과값을 반환
 		//화면에서 사영할 수 있도록 boardVo 이름으로 modelㅂ전환
 		FreeBoardVO boardVo = freeService.getDetail(bno);
-		System.out.println(boardVo);
+//		System.out.println(boardVo);
 		model.addAttribute("vo", boardVo);
 	}
 	
