@@ -95,6 +95,7 @@ public class FreeBoardController {
 		}
 		return "redirect:/freeBoard/freeList";
 	}
+
 	
 	
 }
