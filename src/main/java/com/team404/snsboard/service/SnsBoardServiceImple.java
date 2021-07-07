@@ -1,5 +1,7 @@
 package com.team404.snsboard.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class SnsBoardServiceImple implements SnsBoardService {
 		System.out.println(vo);
 		System.out.println(snsmapper.insert(vo));
 		return snsmapper.insert(vo);
+	}
+	@Override
+	public ArrayList<SnsBoardVo> getList() {
+		
+		return snsmapper.getList();
 	}
 
 }

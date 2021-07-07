@@ -54,8 +54,9 @@
 
 					<!-- 파일 업로드 폼 끝 -->
 					<div id="contentDiv">
-						<div class="title-inner">
-							<!--제목영역-->
+
+
+						<!-- <div class="title-inner">
 							<div class="profile">
 								<img src="../resources/img/profile.png">
 							</div>
@@ -65,23 +66,22 @@
 							</div>
 						</div>
 						<div class="content-inner">
-							<!--내용영역-->
 							<p>삶이 우리를 끝없이 시험하기에 고어텍스는 한계를 테스트합니다</p>
 						</div>
 						<div class="image-inner">
-							<!-- 이미지영역 -->
 							<img src="../resources/img/facebook.jpg">
 
 						</div>
 						<div class="like-inner">
-							<!--좋아요-->
 							<img src="../resources/img/icon.jpg"> <span>522</span>
 						</div>
 						<div class="link-inner">
 							<a href="##"><i class="glyphicon glyphicon-thumbs-up"></i>좋아요</a>
 							<a href="##"><i class="glyphicon glyphicon-comment"></i>댓글달기</a>
 							<a href="##"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>
-						</div>
+						</div> -->
+
+
 					</div>
 				</div>
 				<!--우측 어사이드-->
@@ -145,12 +145,12 @@
 				file = file.slice(file.lastIndexOf(".", file.length), file.length);
 				// console.log(file);
 				console.log("////////////////////////");
-				 if (file != '.jpg' && file != '.PNG' && file != '.bmp') {
+				if (file != '.jpg' && file != '.PNG' && file != '.bmp') {
 					alert("이미지 형태만 등록합니다");
-				 	return;
-				 } else if (writer == false) {
+					return;
+				} else if (writer == false) {
 
-				 }
+				}
 
 				// console.log($("#file")[0]);
 				// console.log($("#file")[0].files);
@@ -160,46 +160,89 @@
 				var formData = new FormData();
 
 				// fromData.append("writer",writer);
-				formData.append("content",content);
-				formData.append("file",$("#file")[0].files[0]);
-				console.log("file",$("#file")[0].files[0]);
+				formData.append("content", content);
+				formData.append("file", $("#file")[0].files[0]);
+				console.log("file", $("#file")[0].files[0]);
 				console.log("#############");
-
+			
 
 
 				$.ajax({
-						type: "post",
-						url: "snsUpload",
-						processData: false,
-						contentType: false,
-						data : formData,
-						success : function(data){
-							console.log("====");
-							console.log(data);
-							
-							
-							
-							if (data == "success"){
-								$("#file").val("");
-								$("#content").val("");
-								$(".fileDiv").css("display","none");
-								
-							}
-							else if(data == "idFail")
-							{
-								alert("로그인실패");
-							}
-							else{
-								alert("서버실패");
-							}
+					type: "post",
+					url: "snsUpload",
+					processData: false,
+					contentType: false,
+					data: formData,
+					success: function (data) {
+						console.log("====");
+						console.log(data);
 
-						},
-						error : function(status,error){
+
+
+						if (data == "success") {
+							$("#file").val("");
+							$("#content").val("");
+							$(".fileDiv").css("display", "none");
 
 						}
-				})
-			});
+						else if (data == "idFail") {
+							alert("로그인실패");
+						}
+						else {
+							alert("서버실패");
+						}
 
+					},
+					error: function (status, error) {
+
+					}
+				})
+			});//등록이벤트
+			
+			getList();//즉시 실행 함수
+			function getList() {
+				var strAdd = "";
+				console.log("즉시실행함수겟리스트");
+				$.getJSON("getList", function (data) {
+					console.log(data);
+					console.log("데이따 도착");
+
+					for (var i = 0; i < data.length; i++) {
+						strAdd += '<div class="title-inner">'
+						strAdd += '<div class="profile">'
+						strAdd += '<img src="../resources/img/profile.png">'
+						strAdd += '</div>'
+						strAdd += '<div class="title">'
+						strAdd += '<p>'+ data[i].writer+'</p>'
+						strAdd += '<small>'+ data[i].regdate+'</small>'
+						strAdd += '</div>'
+						strAdd += '</div>'
+						strAdd += '<div class="content-inner">'
+						strAdd += '<p>'+ data[i].content+'</p>'
+						strAdd += '</div>'
+						strAdd += '<div class="image-inner">'
+						strAdd += '<img src="'+'view/'+ data[i].fileLoca+"/"+data[i].fileName +'">'
+						strAdd += '</div>'
+						strAdd += '<div class="like-inner">'
+						strAdd += '<img src="../resources/img/icon.jpg"> <span>522</span>'
+						strAdd += '<a href="download/'+data[i].fileLoca +"/"+data[i].fileName+'">다운로드</a>'
+						strAdd += '</div>'
+						strAdd += '<div class="link-inner">'
+						strAdd += '<a href="##"><i class="glyphicon glyphicon-thumbs-up"></i>좋아요</a>'
+						strAdd += '<a href="##"><i class="glyphicon glyphicon-comment"></i>댓글달기</a>'
+						strAdd += '<a href="##"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>'
+						strAdd += '</div>'
+					}
+					$("#contentDiv").html(strAdd);
+					console.log("최종!");
+				});
+
+			}
+
+			// (function () {
+			// 	getList();//즉시 실행 함수
+			// 	console.log(1);
+			// })();
 
 		});
 
